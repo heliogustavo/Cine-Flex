@@ -1,42 +1,50 @@
 import styled from "styled-components"
+import axios from 'axios'
+import { Link, useParams } from 'react-router-dom'
+import { useState } from "react"
+import { useEffect } from "react"
+
 
 export default function SessionsPage() {
+    const params = useParams()
+    const [inforFilmeSelec, setInforFilmeSelec] = useState([])
+    const [listaDeHorarios, setListaDeHorarios] = useState([])
 
+
+    useEffect(() => {
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${params.idFilme}/showtimes`)
+        promise.then((resposta) => {
+            setInforFilmeSelec(resposta.data)
+            setListaDeHorarios(resposta.data.days)
+        })
+    }, [])
     return (
         <PageContainer>
             Selecione o horário
             <div>
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
+                {listaDeHorarios.map(cadaSessao =>
+                    <SessionContainer key={cadaSessao.id}>
+                        {cadaSessao.weekday} - {cadaSessao.date}
+                        <ButtonsContainer>
+                            {cadaSessao.showtimes.map((cadaHora) => 
 
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
+                                <Link to={`/assentos/${cadaHora.id}`} key={cadaHora.id}>
+                                    <button>{cadaHora.name}</button>
+                                </Link>
+                            )}
 
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
+                        </ButtonsContainer>
+                    </SessionContainer>
+                )}
+
             </div>
 
             <FooterContainer>
                 <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    <img src={inforFilmeSelec.posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
+                    <p>{inforFilmeSelec.title}</p>
                 </div>
             </FooterContainer>
 
@@ -72,7 +80,19 @@ const ButtonsContainer = styled.div`
     flex-direction: row;
     margin: 20px 0;
     button {
+        width: 83px;
+        height: 43px;
+        border-radius: 3px;
         margin-right: 20px;
+        background-color: #E8833A;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 21px;
+        letter-spacing: 0.02em;
+        text-align: center;
+        color: #FFFFFF;
+
     }
     a {
         text-decoration: none;
