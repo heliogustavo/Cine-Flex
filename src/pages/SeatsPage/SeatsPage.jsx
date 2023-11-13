@@ -4,12 +4,12 @@ import { useState } from "react"
 import { useEffect } from "react"
 import styled from "styled-components"
 import Assento from "../../components/Assento"
+import { coresAssento } from "../../components/constants/colors"
 
 
 export default function SeatsPage() {
     const params = useParams()
     const [listaAssentos, setListaAssentos] = useState([])
-    const [assentoSelecionado, setAssentoSelecionado] = useState([])
     const [dadosAssentos, setDadosAssentos] = useState(null);
     const [name, setName] = useState("");
     const [cpf, setCpf] = useState("");
@@ -25,7 +25,7 @@ export default function SeatsPage() {
             setListaAssentos(resposta.data.seats)
             setDadosAssentos(resposta.data)
 
-            
+
         }
         )
 
@@ -36,22 +36,26 @@ export default function SeatsPage() {
 
             <SeatsContainer>
                 {listaAssentos.map(cadaAssento =>
-                    <Assento cadaAssento={cadaAssento} assentoSelecionado={assentoSelecionado} setAssentoSelecionado={setAssentoSelecionado} key={cadaAssento.id}></Assento>
+                    <Assento
+                        cadaAssento={cadaAssento}
+                        key={cadaAssento.id}
+                        coresAssento={coresAssento}
+                    />
                 )}
 
             </SeatsContainer>
 
             <CaptionContainer>
                 <CaptionItem>
-                    <CaptionCircleSelecionado theme={cor} />
-                    Selecionado
+                    <CaptionCircle status={'selecionado'} coresAssento={coresAssento}/>
+                    Selecionado                             
                 </CaptionItem>
                 <CaptionItem>
-                    <CaptionCircleDisponivel theme={cor} />
+                    <CaptionCircle status={'disponivel'} coresAssento={coresAssento}/>
                     Disponível
                 </CaptionItem>
                 <CaptionItem>
-                    <CaptionCircleIndisponivel theme={cor} />
+                    <CaptionCircle status={'indisponivel'} coresAssento={coresAssento} />
                     Indisponível
                 </CaptionItem>
             </CaptionContainer>
@@ -151,9 +155,9 @@ const CaptionContainer = styled.div`
     justify-content: space-between;
     margin: 20px;
 `
-const CaptionCircleSelecionado = styled.div`
-    border: 1px #0E7D71;         // Essa cor deve mudar
-    background-color: #1AAE9E;    // Essa cor deve mudar
+const CaptionCircle = styled.div`
+    border: 1px solid  ${props => props.coresAssento[props.status].borda};         // Essa cor deve mudar
+    background-color:  ${props => props.coresAssento[props.status].corDeFundo};    // Essa cor deve mudar
     height: 25px;
     width: 25px;
     border-radius: 25px;
@@ -161,29 +165,6 @@ const CaptionCircleSelecionado = styled.div`
     align-items: center;
     justify-content: center;
     margin: 5px 3px;
-`
-const CaptionCircleDisponivel = styled.div`
-    border: 1px  #7B8B99;         // Essa cor deve mudar
-    background-color: #C3CFD9;    // Essa cor deve mudar
-    height: 25px;
-    width: 25px;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 3px;
-`
-const CaptionCircleIndisponivel = styled.div`
-    border: 1px #F7C52B;         // Essa cor deve mudar
-    background-color:   #FBE192;    // Essa cor deve mudar 
-    height: 25px;
-    width: 25px;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 3px;
-
 `
 const CaptionItem = styled.div`
     display: flex;
