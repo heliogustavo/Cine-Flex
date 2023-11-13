@@ -1,31 +1,33 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
-export default function SuccessPage() {
 
+export default function SuccessPage(props) {
+    const { movie, date, session, seats, nome, cpf } = props.inforReservaFeita;
     return (
         <PageContainer>
             <h1>Pedido feito <br /> com sucesso!</h1>
 
             <TextContainer>
                 <strong><p>Filme e sessão</p></strong>
-                <p>Tudo em todo lugar ao mesmo tempo</p>
-                <p>03/03/2023 - 14:00</p>
+                <p>{movie}</p>
+                <p>{date} - {session}</p>
             </TextContainer>
 
             <TextContainer>
                 <strong><p>Ingressos</p></strong>
-                <p>Assento 01</p>
-                <p>Assento 02</p>
-                <p>Assento 03</p>
+                {seats.map(s => <p key={s.id}>{s}</p>
+                )}
             </TextContainer>
 
             <TextContainer>
                 <strong><p>Comprador</p></strong>
-                <p>Nome: Letícia Chijo</p>
-                <p>CPF: 123.456.789-10</p>
+                <p>Nome: {name}</p>
+                <p>CPF: {cpf}</p>
             </TextContainer>
-
-            <button>Voltar para Home</button>
+            <Link to="/">
+                <button>Voltar para Home</button>
+            </Link>
         </PageContainer>
     )
 }
@@ -44,7 +46,18 @@ const PageContainer = styled.div`
         text-decoration: none;
     }
     button {
-        margin-top: 50px;
+background-color: #E8833A;
+margin-top: 50px;
+width: 225px;
+height: 42px;
+border-radius: 3px;
+font-family: Roboto;
+font-size: 18px;
+font-weight: 400;
+line-height: 21px;
+letter-spacing: 0.04em;
+text-align: center;
+color: #FFFFFF;
     }
     h1 {
         font-family: 'Roboto';

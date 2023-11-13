@@ -4,17 +4,22 @@ import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react"
 
 
 export default function App() {
+
+  const [inforReservaFeita, setInforReservaFeita] = useState([])
+
+
   return (
     <BrowserRouter>
       <NavContainer>CINEFLEX</NavContainer>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/sessoes/:idFilme" element={<SessionsPage />} />
-        <Route path="/assentos/:idSessao" element={<SeatsPage />} />
-        <Route path="/finalizarPedido" element={<SuccessPage />} />
+        <Route path="/assentos/:idSessao" element={<SeatsPage  setInforReservaFeita={setInforReservaFeita}/>} />
+        <Route path="/finalizarPedido" element={<SuccessPage  inforReservaFeita={inforReservaFeita}/>} />
       </Routes>
     </BrowserRouter>
   )
