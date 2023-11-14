@@ -22,7 +22,7 @@ export default function SuccessPage(props) {
 
             <TextContainer data-test="client-info">
                 <strong><p>Comprador</p></strong>
-                <p>Nome: {name}</p>
+                <p>Nome: {nome}</p>
                 <p>CPF: {cpf}</p>
             </TextContainer>
             <Link to="/">
