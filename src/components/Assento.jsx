@@ -52,6 +52,7 @@ export default function Assento(props) {
       key={cadaAssento.id}
       status={status}
       coresAssento={coresAssento}
+      data-test="seat"
     >
       {cadaAssento.name}
     </SeatItem>

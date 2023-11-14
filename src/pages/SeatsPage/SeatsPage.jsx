@@ -100,6 +100,7 @@ export default function SeatsPage(props) {
                     required 
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
+                    data-test="client-name" 
                     />
 
                 <label htmlFor='cpf'> CPF do Comprador:</label>
@@ -108,20 +109,22 @@ export default function SeatsPage(props) {
                     placeholder="Digite seu CPF..."
                     required 
                     value={cpf}
-                    onChange={(e) => setCpf(e.target.value)}/>
+                    onChange={(e) => setCpf(e.target.value)}
+                    data-test="client-cpf" 
+                    />
 
-                <button type="submit">Reservar Assento(s)</button>
+                <button type="submit" data-test="book-seat-btn">Reservar Assento(s)</button>
             </FormContainer>
 
-            {dadosAssentos ?
+            {dadosAssentos ?   
 
-                <FooterContainer>
+                <FooterContainer data-test="footer">
 
                     <div>
                         <img src={dadosAssentos.movie.posterURL} alt="poster" />
                     </div>
                     <div>
-                        <p>{dadosAssentos.movie.title}</p>
+                        <p >{dadosAssentos.movie.title}</p>
                         <p>{dadosAssentos.day.weekday} - {dadosAssentos.day.date}</p>
                     </div>
                 </FooterContainer>
