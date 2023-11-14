@@ -36,7 +36,7 @@ export default function SeatsPage(props) {
                 cpf: cpf
             }
             setInforReservaFeita(infor)
-            navegate('/finalizarPedido')
+            navegate('/sucesso')
             console.log(infor)
 
     })
@@ -46,8 +46,6 @@ export default function SeatsPage(props) {
             alert('Por favor, insira seu nome.');
             return;
           }
-          console.log(inforReserva)
-          console.log(assentosSelecionados)
 
 }
   
@@ -60,6 +58,8 @@ export default function SeatsPage(props) {
         )
 
     }, [])
+    console.log(dadosAssentos)
+
     return (
         <PageContainer>
             Selecione o(s) assento(s)
@@ -125,7 +125,7 @@ export default function SeatsPage(props) {
                     </div>
                     <div>
                         <p >{dadosAssentos.movie.title}</p>
-                        <p>{dadosAssentos.day.weekday} - {dadosAssentos.day.date}</p>
+                        <p>{dadosAssentos.day.weekday} - {dadosAssentos.name}</p>
                     </div>
                 </FooterContainer>
                 :
